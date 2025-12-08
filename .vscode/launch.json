@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SmartKitchenAssistantApplication<smart-kitchen-assistant>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.manas.smart_kitchen_assistant.SmartKitchenAssistantApplication",
+            "projectName": "smart-kitchen-assistant",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
