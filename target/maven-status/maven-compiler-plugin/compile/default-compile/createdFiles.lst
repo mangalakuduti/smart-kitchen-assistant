@@ -1,0 +1,8 @@
+com/manas/smart_kitchen_assistant/dto/CreateInventoryItemRequest.class
+com/manas/smart_kitchen_assistant/SmartKitchenAssistantApplication.class
+com/manas/smart_kitchen_assistant/repository/InventoryRepository.class
+com/manas/smart_kitchen_assistant/model/InventoryItem$InventoryItemBuilder.class
+com/manas/smart_kitchen_assistant/service/InventoryService.class
+com/manas/smart_kitchen_assistant/dto/InventoryItemResponse.class
+com/manas/smart_kitchen_assistant/controller/InventoryController.class
+com/manas/smart_kitchen_assistant/model/InventoryItem.class
