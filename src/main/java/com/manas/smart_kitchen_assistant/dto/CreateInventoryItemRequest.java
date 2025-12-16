@@ -1,8 +1,12 @@
 package com.manas.smart_kitchen_assistant.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class CreateInventoryItemRequest {
     private String name;
     private double quantity;
