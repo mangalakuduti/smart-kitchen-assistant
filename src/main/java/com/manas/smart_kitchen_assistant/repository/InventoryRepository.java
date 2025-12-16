@@ -1,7 +1,9 @@
 package com.manas.smart_kitchen_assistant.repository;
 
-import com.manas.smart_kitchen_assistant.model.InventoryItem;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface InventoryRepository extends JpaRepository<InventoryItem, Long> {
+import com.manas.smart_kitchen_assistant.model.InventoryItem;
+
+public interface InventoryRepository extends MongoRepository<InventoryItem, String> {
+
 }
