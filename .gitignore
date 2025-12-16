@@ -5,3 +5,5 @@
 *.class
 target/
 build/
+.env
+.vscode
