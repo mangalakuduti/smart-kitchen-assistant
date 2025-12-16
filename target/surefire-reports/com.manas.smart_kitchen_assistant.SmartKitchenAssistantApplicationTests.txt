@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.manas.smart_kitchen_assistant.SmartKitchenAssistantApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.728 s -- in com.manas.smart_kitchen_assistant.SmartKitchenAssistantApplicationTests

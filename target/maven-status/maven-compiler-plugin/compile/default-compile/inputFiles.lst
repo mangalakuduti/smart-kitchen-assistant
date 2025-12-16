@@ -1,7 +1,0 @@
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/SmartKitchenAssistantApplication.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/controller/InventoryController.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/dto/CreateInventoryItemRequest.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/dto/InventoryItemResponse.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/model/InventoryItem.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/repository/InventoryRepository.java
-/Users/manasangalakuduti/Documents/repositories/smart-kitchen-assistant/src/main/java/com/manas/smart_kitchen_assistant/service/InventoryService.java
