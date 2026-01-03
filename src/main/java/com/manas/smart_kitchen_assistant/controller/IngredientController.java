@@ -1,6 +1,5 @@
 package com.manas.smart_kitchen_assistant.controller;
 
-import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,35 +9,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.manas.smart_kitchen_assistant.dto.CreateInventoryItemRequest;
-import com.manas.smart_kitchen_assistant.dto.InventoryItemResponse;
-import com.manas.smart_kitchen_assistant.dto.UpdateInventoryItemRequest;
-import com.manas.smart_kitchen_assistant.service.InventoryService;
+import com.manas.smart_kitchen_assistant.dto.CreateIngredientRequest;
+import com.manas.smart_kitchen_assistant.dto.IngredientResponse;
+import com.manas.smart_kitchen_assistant.dto.UpdateIngredientRequest;
+import com.manas.smart_kitchen_assistant.service.IngredientService;
 
 import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/ingredients")
 @RequiredArgsConstructor
 @CrossOrigin // allow React frontend
-public class InventoryController {
+public class IngredientController {
 
-    private final InventoryService service;
+    private final IngredientService service;
 
     @PostMapping
-    public InventoryItemResponse createItem(@RequestBody CreateInventoryItemRequest req) {
+    public IngredientResponse createItem(@RequestBody CreateIngredientRequest req) {
         return service.createItem(req);
     }
 
     @GetMapping
-    public List<InventoryItemResponse> getAllItems() {
+    public Object getItems(@RequestParam(name = "name", required = false) String name) {
+        if (name != null && !name.isBlank()) {
+            return service.getItemByName(name.trim());
+        }
         return service.getAllItems();
     }
+
     @GetMapping("/{id}")
-    public InventoryItemResponse getItemById(@PathVariable String id) {
+    public IngredientResponse getItemById(
+        @PathVariable String id
+    ) {
         return service.getItemById(id);
     }
 
@@ -48,9 +54,9 @@ public class InventoryController {
     }
 
     @PatchMapping("/{id}")
-    public InventoryItemResponse updateItem(
+    public IngredientResponse updateItem(
             @PathVariable String id,
-            @RequestBody UpdateInventoryItemRequest req) {
+            @RequestBody UpdateIngredientRequest req) {
         return service.updateItem(id, req);
     }
 

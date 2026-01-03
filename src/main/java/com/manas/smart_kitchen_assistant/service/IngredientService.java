@@ -6,32 +6,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.manas.smart_kitchen_assistant.dto.CreateInventoryItemRequest;
-import com.manas.smart_kitchen_assistant.dto.InventoryItemResponse;
-import com.manas.smart_kitchen_assistant.dto.UpdateInventoryItemRequest;
-import com.manas.smart_kitchen_assistant.model.InventoryItem;
-import com.manas.smart_kitchen_assistant.repository.InventoryRepository;
+import com.manas.smart_kitchen_assistant.dto.CreateIngredientRequest;
+import com.manas.smart_kitchen_assistant.dto.IngredientResponse;
+import com.manas.smart_kitchen_assistant.dto.UpdateIngredientRequest;
+import com.manas.smart_kitchen_assistant.model.Ingredient;
+import com.manas.smart_kitchen_assistant.repository.IngredientRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryService {
+public class IngredientService {
 
-    private final InventoryRepository repository;
+    private final IngredientRepository repository;
 
-    public InventoryItemResponse createItem(CreateInventoryItemRequest req) {
+    public IngredientResponse createItem(CreateIngredientRequest req) {
 
-        InventoryItem item = InventoryItem.builder()
+        Ingredient item = Ingredient.builder()
                 .name(req.getName())
                 .quantity(req.getQuantity())
                 .unit(req.getUnit())
                 .category(req.getCategory())
                 .build();
 
-        InventoryItem saved = repository.save(item);
+        Ingredient saved = repository.save(item);
 
-        InventoryItemResponse res = new InventoryItemResponse();
+        IngredientResponse res = new IngredientResponse();
         res.setId(saved.getId());
         res.setName(saved.getName());
         res.setQuantity(saved.getQuantity());
@@ -41,18 +41,28 @@ public class InventoryService {
         return res;
     }
 
-    public List<InventoryItemResponse> getAllItems() {
+    public List<IngredientResponse> getAllItems() {
         return repository.findAll()
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
-    public InventoryItemResponse getItemById(String id) {
-        InventoryItem item = repository.findById(id)
+    public IngredientResponse getItemById(String id) {
+        Ingredient item = repository.findById(id)
             .orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Inventory Item not found with id: " + id
+                    "Ingredient not found with id: " + id
+                )
+            );
+        return mapToResponse(item);
+    }
+
+    public IngredientResponse getItemByName(String name) {
+        Ingredient item = repository.findByNameIgnoreCase(name)
+            .orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Ingredient not found with name: " + name
                 )
             );
         return mapToResponse(item);
@@ -62,17 +72,17 @@ public class InventoryService {
         if (!repository.existsById(id)) {
             throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND,
-                "Inventory Item not found with id: " + id
+                "Ingredient not found with id: " + id
             );
         }
         repository.deleteById(id);
     }
 
-    public InventoryItemResponse updateItem(String id, UpdateInventoryItemRequest req) {
-        InventoryItem item = repository.findById(id)
+    public IngredientResponse updateItem(String id, UpdateIngredientRequest req) {
+        Ingredient item = repository.findById(id)
             .orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Inventory Item not found with id: " + id
+                    "Ingredient not found with id: " + id
                 )
             );
         if (req.getName() != null) {
@@ -88,12 +98,12 @@ public class InventoryService {
             item.setCategory(req.getCategory());
         }
 
-        InventoryItem updated = repository.save(item);
+        Ingredient updated = repository.save(item);
         return mapToResponse(updated);
     }
 
-    private InventoryItemResponse mapToResponse(InventoryItem item) {
-        InventoryItemResponse res = new InventoryItemResponse();
+    private IngredientResponse mapToResponse(Ingredient item) {
+        IngredientResponse res = new IngredientResponse();
         res.setId(item.getId());
         res.setName(item.getName());
         res.setQuantity(item.getQuantity());

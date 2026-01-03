@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InventoryItem {
+public class Ingredient {
 
     @Id
     private String id;
