@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class IngredientService {
 
     private final IngredientRepository repository;
+    private final RecipeService recipeService;
 
     public IngredientResponse createItem(CreateIngredientRequest req) {
 
@@ -30,6 +31,9 @@ public class IngredientService {
                 .build();
 
         Ingredient saved = repository.save(item);
+
+        // Trigger recipe availability recalculation for this ingredient
+        recipeService.recalculateRecipesWithIngredient(saved.getName());
 
         IngredientResponse res = new IngredientResponse();
         res.setId(saved.getId());
@@ -69,13 +73,20 @@ public class IngredientService {
     }
 
     public void deleteItemById(String id) {
-        if (!repository.existsById(id)) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Ingredient not found with id: " + id
+        // Get ingredient name before deletion for recipe recalculation
+        Ingredient ingredient = repository.findById(id)
+            .orElseThrow(() ->
+                new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Ingredient not found with id: " + id
+                )
             );
-        }
+        String ingredientName = ingredient.getName();
+        
         repository.deleteById(id);
+        
+        // Trigger recipe availability recalculation
+        recipeService.recalculateRecipesWithIngredient(ingredientName);
     }
 
     public IngredientResponse updateItem(String id, UpdateIngredientRequest req) {
@@ -99,6 +110,10 @@ public class IngredientService {
         }
 
         Ingredient updated = repository.save(item);
+        
+        // Trigger recipe availability recalculation for this ingredient
+        recipeService.recalculateRecipesWithIngredient(updated.getName());
+        
         return mapToResponse(updated);
     }
 
